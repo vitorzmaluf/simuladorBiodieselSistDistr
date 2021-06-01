@@ -4,15 +4,6 @@ from time import sleep
 import math
 
 
-tanqueDeOleo = Lock()
-tanqueNaOHeEtOH = Lock()
-reator = Lock()
-decantador = Lock()
-tanqueLavagem1 = Lock()
-tanqueLavagem2 = Lock()
-tanqueLavagem3 = Lock()
-secador = Lock()
-
 class Simulador:
     def __init__(self):
         self.quantDentroReator = 0.0
