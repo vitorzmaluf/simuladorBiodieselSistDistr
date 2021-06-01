@@ -58,6 +58,7 @@ class Simulador:
         while self.rodando:
             total = self.quantNaOh+self.quantEtOh+self.quantOleo
             if self.quantEtOh >= 5/2 and self.quantNaOh >= 5/4 and self.quantOleo >= 5/4 and self.decantadorDisponivel:
+                print("Reator processando 5 litros")
                 if(self.quantDentroDecantador+5<=10):
                     self.quantDentroReator -= 5
                     self.quantEtOh -= 5/2
@@ -65,7 +66,7 @@ class Simulador:
                     self.quantOleo -= 5/4
                     self.quantDentroDecantador += 5
                     self.ciclosReator += 1
-                    print("Decantador abastecido")
+                    print("Decantador abastecido com 5 litros")
                     if(self.quantDentroDecantador==10):
                         self.decantadorDisponivel = False
                 else:
@@ -85,18 +86,24 @@ class Simulador:
 
                 print("Decantador trabalhando")
                 self.quantGlicerina = self.quantGlicerina + (3*0.02)
+                print("Glicerina recebeu", 3*0.02, "Total de glicerina:", self.quantGlicerina)
                 self.quantEtOh = self.quantEtOh + (3*0.09)
+                print("EtOH recebeu", 3*0.09, "Total de EtOH", self.quantEtOh)
                 if(self.lavadoresDisponiveis):
                     self.quantDentroDecantador = self.quantDentroDecantador-3
                     self.solLavagem += 3*0.89
+                    print("Tanque lavagem recebeu", 3*0.89)
                 sleep(5)
     
     def lavagem(self):
         while self.rodando:
             if(self.solLavagem > 0 and self.lavadoresDisponiveis):
                 self.lavadoresDisponiveis = False
+                print("Primeiro lavador recebeu", self.solLavagem)
                 self.solLavagem = self.solLavagem*0.925
+                print("Segundo lavador recebeu", self.solLavagem)
                 self.solLavagem = self.solLavagem*0.925
+                print("Terceiro lavador recebeu", self.solLavagem)
                 self.solLavagem = self.solLavagem*0.925
                 self.quantSecador = self.solLavagem
                 print("Foram lavados", self.solLavagem, "litros de solução")
@@ -107,7 +114,7 @@ class Simulador:
         while self.rodando:
             if(self.quantSecador>0 and self.secadorDisponivel):
                 self.quantSecador = self.quantSecador*0.97
-                for i in range(0, int(math.ceil(self.quantSecador))):
+                if self.quantSecador >= 1:
                     sleep(5)
                     print("1 litro de solução foi secada")
                     self.quantSecador -= 1
@@ -136,6 +143,5 @@ class Simulador:
 
 simulador = Simulador()
 simulador.iniciar()
-sleep(3200)
+sleep(60)
 simulador.terminar()
-
