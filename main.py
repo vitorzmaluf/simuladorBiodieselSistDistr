@@ -1,4 +1,4 @@
-from threading import Thread, Lock
+from threading import Thread
 import random
 from time import sleep
 import math
@@ -35,15 +35,11 @@ class Simulador:
     def tanqOlRec(self):
         self.quantOleo = 0.0
         while self.rodando:
-        #     tanqueDeOleo.acquire()
-        #     try:
             tempoReceb = random.randrange(1, 11)
             quantReceb = round(random.uniform(1,2), 2)
             self.quantOleo = round(self.quantOleo + quantReceb, 2)
             sleep(tempoReceb)
             print("Tanque de óleo recebeu", quantReceb, "litros - Total: ", self.quantOleo)
-            # finally:
-            #     tanqueDeOleo.release()
         
     def recebeNaOheEtOH(self):
         self.quantNaOh = 0.0
